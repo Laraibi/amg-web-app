@@ -6,7 +6,7 @@ import * as Yup from "yup";
 import { useRef } from "react";
 import { addEmployee } from "../utils/store/employee.js";
 
-const NewEmployeeForm = () => {
+const NewEmployeeForm = ({updateEmployeesState}) => {
   const [submitting, setSubmitting] = useState(false);
   const formikRef = useRef(null);
 
@@ -27,6 +27,7 @@ const NewEmployeeForm = () => {
     }
     setSubmitting(false);
     formikRef.current.resetForm();
+    updateEmployeesState();
   };
 
   return (

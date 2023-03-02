@@ -1,8 +1,13 @@
 import React from "react";
 
-function EmployeeTable({ employees, handleDelete, handleEdit }) {
+function EmployeeTable({
+  employees,
+  handleDelete,
+  handleEdit,
+  updateEmployeesState,
+}) {
   return (
-    <table className="table w-1/2 mx-auto">
+    <table className="table lg:w-1/2 mx-auto">
       <thead>
         <tr className="bg-gray-50">
           <th className="border-b px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -24,13 +29,17 @@ function EmployeeTable({ employees, handleDelete, handleEdit }) {
             <td className="border-b px-4 py-3">
               <button
                 className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-                onClick={() => handleDelete(employee.id)}
+                onClick={() =>
+                  handleDelete(employee.id).then(updateEmployeesState())
+                }
               >
                 Delete
               </button>
               <button
                 className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded ml-4"
-                onClick={() => handleEdit(employee)}
+                onClick={() =>
+                  handleEdit(employee).then(updateEmployeesState())
+                }
               >
                 Edit
               </button>

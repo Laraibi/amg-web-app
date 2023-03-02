@@ -1,20 +1,25 @@
-import './App.css';
-import NewEmployeeForm from './components/EmployeeForm';
-import EmployeeTable from './components/EmployeeTable';
-import { useState, useEffect } from 'react';
-import { getEmployees, deleteEmployee,updateEmployee} from './utils/store/employee'; // import the functions from your employee.js file
+import "./App.css";
+import NewEmployeeForm from "./components/EmployeeForm";
+import EmployeeTable from "./components/EmployeeTable";
+import { useState, useEffect } from "react";
+import {
+  getEmployees,
+  deleteEmployee,
+  updateEmployee,
+} from "./utils/store/employee"; // import the functions from your employee.js file
 
 function App() {
   const [employees, setEmployees] = useState([]);
-
-  useEffect(() => {
+  const handleUpdateEmployees = () =>
     getEmployees()
-      .then(data => {
+      .then((data) => {
         setEmployees(data);
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
+  useEffect(() => {
+    handleUpdateEmployees();
   }, []);
 
   // const handleAddEmployee = async (employee) => {
@@ -29,8 +34,13 @@ function App() {
 
   return (
     <div className="App">
-      <NewEmployeeForm  />
-      <EmployeeTable employees={employees} handleDelete={deleteEmployee} handleEdit={updateEmployee}/>
+      <NewEmployeeForm updateEmployeesState={handleUpdateEmployees} />
+      <EmployeeTable
+        updateEmployeesState={handleUpdateEmployees}
+        employees={employees}
+        handleDelete={deleteEmployee}
+        handleEdit={updateEmployee}
+      />
     </div>
   );
 }
